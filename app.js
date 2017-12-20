@@ -2,53 +2,54 @@
 
 Product.allProducts = [];
 
-function Product(name, filepath) {
-  this.name = name;
+var counter = 0;
+
+var newProducts = [
+  ['img/bag.png', 'Bag'],
+  ['img/banana.jpg', 'Banana '],
+  ['img/bathroom.jpg', 'Bathroom'],
+  ['img/boots.jpg', 'Boots'],
+  ['img/breakfast.jpg', 'Breakfast'],
+  ['img/bubblegum.jpg', 'Bubble Gum'],
+  ['img/chair.jpg', 'Chair'],
+  ['img/cthulhu.jpg', 'Cthulhu'],
+  ['img/dog-duck.jpg', 'DogDuck'],
+  ['img/dragon.jpg', 'Dragon'],
+  ['img/pen.jpg', 'Pens'],
+  ['img/pet-sweep.jpg', 'Pet Sweeper'],
+  ['img/scissors.jpg', 'Scissors'],
+  ['img/shark.jpg', 'Shark'],
+  ['img/sweep.png', 'Sweeper'],
+  ['img/tauntaun.jpg', 'Tauntaun'],
+  ['img/unicorn.jpg', 'Unicorn'],
+  ['img/usb.gif', 'USB'],
+  ['img/water-can.jpg', 'Water Can'],
+  ['img/wine-glass.jpg', 'Wine Glass'],
+];
+
+function Product(filepath, name) {
   this.filepath = filepath;
+  this.image = filepath.split('/')[1];
+  this.name = this.image.split('.')[0];
   this.times_clicked = 0;
+  this.times_shown = 0;
   this.been_shown = false;
   Product.allProducts.push(this);
 }
 
-var randomProductOne = randNum();
-
-var randomProductTwo = randNum();
-
-var randomProductThree = randNum();
-
-var productOne = document.getElementById('product_one')
-
-var productTwo = document.getElementById('product_two')
-
-var productThree = document.getElementById('product_three')
-
-function randNum(){
-  return Math.floor(Math.random() * (Product.allProducts.length-1) + 1);
+function instantiateObjs() {
+  for (var i = 0; i < newProducts.length; i++){
+    var createProduct = newProducts[i];
+    new Product(createProduct[0], createProduct[1]);
+  }
 }
 
+function getRandomIntInclusive(min, max) { // from MDN
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
-var votes = 0;
-
-var shown = [];
-
-
-new Product('Bag', 'img/bag.jpg');
-new Product('Banana', 'img/banana.jpg');
-new Product('Bathroom', 'img/bathroom.jpg');
-new Product('Boots', 'img/boots.jpg');
-new Product('Breakfast', 'img/breakfast.jpg');
-new Product('Bubblegum', 'img/bubblegum.jpg');
-new Product('Chair', 'img/cair.jpg');
-new Product('Cthulhu', 'img/cthulhu.jpg');
-new Product('DogDuck', 'img/dog-duck.jpg');
-new Product('Dragon', 'img/dragon.jpg');
-new Product('Pen', 'img/pen.jpg');
-new Product('PetSweep', 'img/pet-sweep.jpg');
-new Product('Scissors', 'img/scissors.jpg');
-new Product('Shark', 'img/shark.jpg');
-new Product('Sweep', 'img/sweep.jpg');
-new Product('Tauntaun', 'img/tauntaun.jpg');
-new Product('Unicorn', 'img/unicorn.jpg');
-new Product('USB', 'img/usb.gif');
-new Product('WaterCan', 'img/water-can.jpg');
-new Product('Wine Glass', 'img/wine-glass.jpg');
+function displayRandomProduct() {
+  return (getRandomIntInclusive(1, Product.allProducts.length) - 1);
+};
