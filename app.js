@@ -2,7 +2,7 @@
 
 Product.allProducts = [];
 
-var counter = 0;
+var lastShown = [];
 
 var newProducts = [
   ['img/bag.png', 'Bag'],
@@ -27,16 +27,35 @@ var newProducts = [
   ['img/wine-glass.jpg', 'Wine Glass'],
 ];
 
-function Product(filepath, name) {
+
+// capturing HTML img elements
+var firstProduct = document.getElementById('image-one');
+var secondProduct = document.getElementById('image-two');
+var thirdProduct = document.getElementById('image-three');
+
+// random products
+var randomProductOne = ranNum();
+var randomProductTwo = ranNum();
+var randomProductThree = ranNum();
+
+// vote counter
+
+var voteCount = 0;
+
+// constructor function
+function Product(filepath) {
   this.filepath = filepath;
-  this.image = filepath.split('/')[1];
-  this.name = this.image.split('.')[0];
-  this.times_clicked = 0;
-  this.times_shown = 0;
-  this.been_shown = false;
+  this.path = filepath.split('/')[1];
+  this.name = this.path.split('.')[0];
+  this.timesClicked = 0;
+  this.timesShown = 0;
+  this.beenShown = false;
   Product.allProducts.push(this);
 }
 
+
+
+// creates instances of object
 function instantiateObjs() {
   for (var i = 0; i < newProducts.length; i++){
     var createProduct = newProducts[i];
@@ -44,12 +63,11 @@ function instantiateObjs() {
   }
 }
 
-function getRandomIntInclusive(min, max) { // from MDN
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+// random number between 0-19
+function ranNum() {
+  return Math.floor(Math.random() * ((newProducts.length-1) + 1));
 }
 
-function displayRandomProduct() {
-  return (getRandomIntInclusive(1, Product.allProducts.length) - 1);
-};
+function startSurvey() {
+  firstProduct.innerHTML = '<input type="image" src="' + Product.allProducts[randomProductOne].filePath + '" name="first_img">';
+}
