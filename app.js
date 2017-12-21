@@ -69,5 +69,22 @@ function ranNum() {
 }
 
 function startSurvey() {
-  firstProduct.innerHTML = '<input type="image" src="' + Product.allProducts[randomProductOne].filePath + '" name="first_img">';
+  firstProduct.innerHTML = '<input type="image" src="' + Product.allProducts[randomProductOne].filepath + '" name="first-image">';
+
+  while(randomProductTwo === randomProductOne) {
+    randomProductTwo = ranNum();
+  }
+
+
+  randomProductTwo.innerHTML = '<input type="image" src="' + Product.allProducts[randomProductTwo].filepath + '" name="second-image">'
+
+  while(randomProductThree === randomProductTwo || randomProductThree === randomProductOne){
+    randomProductThree = ranNum();
+  }
+
+  thirdProduct.innerHTML = 'input type="image" src="' + Product.allProducts[randomProductThree].filepath + '" name="third-image">'
+
+  lastShown.push(randomProductOne);
+  lastShown.push(randomProductTwo);
+  lastShown.push(randomProductThree);
 }
