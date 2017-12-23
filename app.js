@@ -1,11 +1,12 @@
 'use strict';
 
-Product.allProducts = [];
+var voteCount = 0;
+var allProducts = [];
 
-var lastShown = [];
+
 
 var newProducts = [
-  ['img/bag.png', 'Bag'],
+  ['img/bag.jpg', 'Bag'],
   ['img/banana.jpg', 'Banana '],
   ['img/bathroom.jpg', 'Bathroom'],
   ['img/boots.jpg', 'Boots'],
@@ -29,18 +30,13 @@ var newProducts = [
 
 
 // capturing HTML img elements
-var firstProduct = document.getElementById('image-one');
-var secondProduct = document.getElementById('image-two');
-var thirdProduct = document.getElementById('image-three');
+var firstProductEl = document.getElementById('image-one');
+var secondProductEl = document.getElementById('image-two');
+var thirdProductEl = document.getElementById('image-three');
 
-// random products
-var randomProductOne = ranNum();
-var randomProductTwo = ranNum();
-var randomProductThree = ranNum();
 
 // vote counter
 
-var voteCount = 0;
 
 // constructor function
 function Product(filepath) {
@@ -50,7 +46,8 @@ function Product(filepath) {
   this.timesClicked = 0;
   this.timesShown = 0;
   this.beenShown = false;
-  Product.allProducts.push(this);
+  this.lastShown = false;
+  allProducts.push(this);
 }
 
 
@@ -65,26 +62,33 @@ function instantiateObjs() {
 
 // random number between 0-19
 function ranNum() {
-  return Math.floor(Math.random() * ((newProducts.length-1) + 1));
+  return Math.floor(Math.random() * ((newProducts.length-1)));
 }
 
-function startSurvey() {
-  firstProduct.innerHTML = '<input type="image" src="' + Product.allProducts[randomProductOne].filepath + '" name="first-image">';
+// firstProduct.src=allProducts[ranNum()].filepath
 
-  while(randomProductTwo === randomProductOne) {
-    randomProductTwo = ranNum();
-  }
+function start() {
+
+  var firstProduct = allProducts[ranNum()];
+  firstProduct.beenShown = true;
+  var secondProduct = allProducts[ranNum()];
+  secondProduct.beenShown = true;
+  var thirdProduct = allProducts[ranNum()];
+  thirdProduct.beenShown = true;
 
 
-  randomProductTwo.innerHTML = '<input type="image" src="' + Product.allProducts[randomProductTwo].filepath + '" name="second-image">'
+  firstProductEl.src=firstProduct.filepath;
+  secondProductEl.src=secondProduct.filepath;
+  thirdProductEl.src=thirdProduct.filepath;
 
-  while(randomProductThree === randomProductTwo || randomProductThree === randomProductOne){
-    randomProductThree = ranNum();
-  }
 
-  thirdProduct.innerHTML = 'input type="image" src="' + Product.allProducts[randomProductThree].filepath + '" name="third-image">'
 
-  lastShown.push(randomProductOne);
-  lastShown.push(randomProductTwo);
-  lastShown.push(randomProductThree);
 }
+
+
+
+
+
+
+instantiateObjs();
+start();
