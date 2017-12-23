@@ -71,18 +71,27 @@ function start() {
 
   var firstProduct = allProducts[ranNum()];
   firstProduct.beenShown = true;
+
   var secondProduct = allProducts[ranNum()];
+
+  while(secondProduct.beenShown === true) {
+    secondProduct = allProducts[ranNum()];
+  }
+
   secondProduct.beenShown = true;
+
   var thirdProduct = allProducts[ranNum()];
+
+  while(thirdProduct.beenShown === true){
+    thirdProduct = allProducts[ranNum()];
+  }
+
   thirdProduct.beenShown = true;
 
 
   firstProductEl.src=firstProduct.filepath;
   secondProductEl.src=secondProduct.filepath;
   thirdProductEl.src=thirdProduct.filepath;
-
-
-
 }
 
 
