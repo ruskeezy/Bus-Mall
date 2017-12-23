@@ -2,7 +2,9 @@
 
 var voteCount = 0;
 var allProducts = [];
-
+var firstProduct;
+var secondProduct;
+var thirdProduct;
 
 
 var newProducts = [
@@ -69,20 +71,23 @@ function ranNum() {
 
 function start() {
 
-  var firstProduct = allProducts[ranNum()];
+  firstProduct = allProducts[ranNum()];
+  while(firstProduct.beenShown === true || firstProduct.lastShown === true){
+    firstProduct = allProducts[ranNum()];
+  }
   firstProduct.beenShown = true;
 
-  var secondProduct = allProducts[ranNum()];
+  secondProduct = allProducts[ranNum()];
 
-  while(secondProduct.beenShown === true) {
+  while(secondProduct.beenShown === true || secondProduct.lastShown === true) {
     secondProduct = allProducts[ranNum()];
   }
 
   secondProduct.beenShown = true;
 
-  var thirdProduct = allProducts[ranNum()];
+  thirdProduct = allProducts[ranNum()];
 
-  while(thirdProduct.beenShown === true){
+  while(thirdProduct.beenShown === true || thirdProduct.lastShown === true){
     thirdProduct = allProducts[ranNum()];
   }
 
@@ -92,7 +97,52 @@ function start() {
   firstProductEl.src=firstProduct.filepath;
   secondProductEl.src=secondProduct.filepath;
   thirdProductEl.src=thirdProduct.filepath;
+
+  for(var i = 0; i < allProducts.length; i++){
+    allProducts[i].lastShown = false;
+  }
+
 }
+
+
+function clickHandler(event){
+  voteCount++
+  var file = event.target.src.split('Bus-Mall/')[1];
+
+  if (file === firstProduct.filepath) {
+    firstProduct.timesClicked += 1;
+  }
+  if (file === secondProduct.filepath) {
+    firstProduct.timesClicked += 1;
+  }
+  if (file === thirdProduct.filepath) {
+    thirdProduct.timesClicked += 1;
+  }
+
+  firstProduct.lastShown = true;
+  secondProduct.lastShown = true;
+  thirdProduct.lastShown = true;
+  firstProduct.beenShown = false;
+  secondProduct.beenShown = false;
+  thirdProduct.beenShown = false;
+
+  if(voteCount === 25){
+    finished();
+  } else{
+    start();
+  }
+};
+
+function finished(){
+  console.log('finished');
+}
+
+
+
+
+firstProductEl.addEventListener('click', clickHandler);
+secondProductEl.addEventListener('click', clickHandler);
+thirdProductEl.addEventListener('click', clickHandler);
 
 
 
