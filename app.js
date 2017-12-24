@@ -36,7 +36,6 @@ var firstProductEl = document.getElementById('image-one');
 var secondProductEl = document.getElementById('image-two');
 var thirdProductEl = document.getElementById('image-three');
 
-
 // vote counter
 
 
@@ -92,6 +91,9 @@ function start() {
   }
 
   thirdProduct.beenShown = true;
+  firstProduct.timesShown++;
+  secondProduct.timesShown++;
+  thirdProduct.timesShown++;
 
 
   firstProductEl.src=firstProduct.filepath;
@@ -111,13 +113,13 @@ function clickHandler(event){
 
   if (file === firstProduct.filepath) {
     firstProduct.timesClicked += 1;
-  }
+  };
   if (file === secondProduct.filepath) {
     firstProduct.timesClicked += 1;
-  }
+  };
   if (file === thirdProduct.filepath) {
     thirdProduct.timesClicked += 1;
-  }
+  };
 
   firstProduct.lastShown = true;
   secondProduct.lastShown = true;
@@ -134,10 +136,21 @@ function clickHandler(event){
 };
 
 function finished(){
+  firstProductEl.removeEventListener('click', clickHandler)
+  secondProductEl.removeEventListener('click', clickHandler)
+  thirdProductEl.removeEventListener('click', clickHandler)
   console.log('finished');
+  displayResults();
 }
 
-
+function displayResults(){
+  for(var i = 0; i < allProducts.length; i++){
+    var list = document.getElementById('final-list');
+    var listItem = document.createElement('li');
+    listItem.innerText = 'Product name: ' + allProducts[i].name + ' Times clicked: ' + allProducts[i].timesClicked + ' Percentage clicked: ' + Math.round(allProducts[i].timesClicked / allProducts[i].timesShown * 100 ) + '%';
+    list.appendChild(listItem)
+  }
+}
 
 
 firstProductEl.addEventListener('click', clickHandler);
