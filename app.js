@@ -6,7 +6,6 @@ var firstProduct;
 var secondProduct;
 var thirdProduct;
 
-
 var newProducts = [
   ['img/bag.jpg', 'Bag'],
   ['img/banana.jpg', 'Banana '],
@@ -103,7 +102,6 @@ function start() {
   for(var i = 0; i < allProducts.length; i++){
     allProducts[i].lastShown = false;
   }
-
 }
 
 
@@ -153,14 +151,12 @@ function displayResults(){
   renderChart();
 }
 
-
 firstProductEl.addEventListener('click', clickHandler);
 secondProductEl.addEventListener('click', clickHandler);
 thirdProductEl.addEventListener('click', clickHandler);
 
 instantiateObjs();
 start();
-
 
 function renderChart(){
   var ctx = document.getElementById("myChart").getContext('2d');
