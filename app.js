@@ -1,11 +1,13 @@
 'use strict';
 
+// global variables
 var voteCount = 0;
 var allProducts = [];
 var firstProduct;
 var secondProduct;
 var thirdProduct;
 
+// array of products
 var newProducts = [
   ['img/bag.jpg', 'Bag'],
   ['img/banana.jpg', 'Banana '],
@@ -35,9 +37,6 @@ var firstProductEl = document.getElementById('image-one');
 var secondProductEl = document.getElementById('image-two');
 var thirdProductEl = document.getElementById('image-three');
 
-// vote counter
-
-
 // constructor function
 function Product(filepath) {
   this.filepath = filepath;
@@ -49,8 +48,6 @@ function Product(filepath) {
   this.lastShown = false;
   allProducts.push(this);
 }
-
-
 
 // creates instances of object
 function instantiateObjs() {
@@ -65,8 +62,7 @@ function ranNum() {
   return Math.floor(Math.random() * ((newProducts.length)));
 }
 
-// firstProduct.src=allProducts[ranNum()].filepath
-
+// on page load, displays 3 random pictures/does not allow duplicates
 function start() {
 
   firstProduct = allProducts[ranNum()];
@@ -80,7 +76,6 @@ function start() {
   while(secondProduct.beenShown === true || secondProduct.lastShown === true) {
     secondProduct = allProducts[ranNum()];
   }
-
   secondProduct.beenShown = true;
 
   thirdProduct = allProducts[ranNum()];
@@ -88,8 +83,8 @@ function start() {
   while(thirdProduct.beenShown === true || thirdProduct.lastShown === true){
     thirdProduct = allProducts[ranNum()];
   }
-
   thirdProduct.beenShown = true;
+
   firstProduct.timesShown++;
   secondProduct.timesShown++;
   thirdProduct.timesShown++;
@@ -128,11 +123,12 @@ function clickHandler(event){
 
   if(voteCount === 25){
     finished();
-  } else{
+  } else {
     start();
   }
 };
 
+// removes listeners, shows results
 function finished(){
   firstProductEl.removeEventListener('click', clickHandler)
   secondProductEl.removeEventListener('click', clickHandler)
@@ -141,16 +137,18 @@ function finished(){
   displayResults();
 }
 
+// displays chart
 function displayResults(){
-  for(var i = 0; i < allProducts.length; i++){
-    var list = document.getElementById('final-list');
-    var listItem = document.createElement('li');
-    listItem.innerText = 'Product name: ' + allProducts[i].name + ' Times clicked: ' + allProducts[i].timesClicked + ' Percentage clicked: ' + Math.round(allProducts[i].timesClicked / allProducts[i].timesShown * 100 ) + '%';
-    list.appendChild(listItem)
-  }
+  // for(var i = 0; i < allProducts.length; i++){
+  //   var list = document.getElementById('final-list');
+  //   var listItem = document.createElement('li');
+  //   listItem.innerText = 'Product name: ' + allProducts[i].name + ' Times clicked: ' + allProducts[i].timesClicked + ' Percentage clicked: ' + Math.round(allProducts[i].timesClicked / allProducts[i].timesShown * 100 ) + '%';
+  //   list.appendChild(listItem)
+  // }
   renderChart();
 }
 
+// event listeners
 firstProductEl.addEventListener('click', clickHandler);
 secondProductEl.addEventListener('click', clickHandler);
 thirdProductEl.addEventListener('click', clickHandler);
@@ -158,6 +156,7 @@ thirdProductEl.addEventListener('click', clickHandler);
 instantiateObjs();
 start();
 
+// renders chart with chartjs
 function renderChart(){
   var ctx = document.getElementById("myChart").getContext('2d');
   var labels = [];
@@ -180,44 +179,44 @@ function renderChart(){
                   'rgba(255, 206, 86, 0.2)',
                   'rgba(75, 192, 192, 0.2)',
                   'rgba(153, 102, 255, 0.2)',
-                  'rgba(255, 159, 64, 0.2)',
-                  'rgba(255, 159, 64, 0.2)',
-                  'rgba(255, 159, 64, 0.2)',
-                  'rgba(255, 159, 64, 0.2)',
-                  'rgba(255, 159, 64, 0.2)',
-                  'rgba(255, 159, 64, 0.2)',
-                  'rgba(255, 159, 64, 0.2)',
-                  'rgba(255, 159, 64, 0.2)',
-                  'rgba(255, 159, 64, 0.2)',
-                  'rgba(255, 159, 64, 0.2)',
-                  'rgba(255, 159, 64, 0.2)',
-                  'rgba(255, 159, 64, 0.2)',
-                  'rgba(255, 159, 64, 0.2)',
-                  'rgba(255, 159, 64, 0.2)',
-                  'rgba(255, 159, 64, 0.2)',
-                  'rgba(255, 159, 64, 0.2)',
+                  'rgba(0, 254, 208, 0.2)',
+                  'rgba(15, 223, 35, 0.2)',
+                  'rgba(135, 136, 238, 0.42)',
+                  'rgba(7, 32, 198, 0.2)',
+                  'rgba(69, 238, 0, 0.2)',
+                  'rgba(255, 24, 1, 0.2)',
+                  'rgba(255, 0, 176, 0.2)',
+                  'rgba(196, 255, 0, 0.2)',
+                  'rgba(0, 165, 201, 0.2)',
+                  'rgba(153, 236, 18, 0.2)',
+                  'rgba(210, 1, 252, 0.2)',
+                  'rgba(60, 148, 157, 0.2)',
+                  'rgba(62, 161, 57, 0.2)',
+                  'rgba(7, 131, 193, 0.2)',
+                  'rgba(26, 208, 71, 0.2)',
+                  'rgba(7, 57, 170, 0.2)',
               ],
               borderColor: [
-                  'rgba(255,99,132,1)',
-                  'rgba(54, 162, 235, 1)',
-                  'rgba(255, 206, 86, 1)',
-                  'rgba(75, 192, 192, 1)',
-                  'rgba(153, 102, 255, 1)',
-                  'rgba(255, 159, 64, 1)',
-                  'rgba(255, 159, 64, 1)',
-                  'rgba(255, 159, 64, 1)',
-                  'rgba(255, 159, 64, 1)',
-                  'rgba(255, 159, 64, 1)',
-                  'rgba(255, 159, 64, 1)',
-                  'rgba(255, 159, 64, 1)',
-                  'rgba(255, 159, 64, 1)',
-                  'rgba(255, 159, 64, 1)',
-                  'rgba(255, 159, 64, 1)',
-                  'rgba(255, 159, 64, 1)',
-                  'rgba(255, 159, 64, 1)',
-                  'rgba(255, 159, 64, 1)',
-                  'rgba(255, 159, 64, 1)',
-                  'rgba(255, 159, 64, 1)'
+                'rgba(255, 255, 255, 1)',
+                'rgba(255, 255, 255, 1)',
+                'rgba(255, 255, 255, 1)',
+                'rgba(255, 255, 255, 1)',
+                'rgba(255, 255, 255, 1)',
+                'rgba(255, 255, 255, 1)',
+                'rgba(255, 255, 255, 1)',
+                'rgba(255, 255, 255, 1)',
+                'rgba(255, 255, 255, 1)',
+                'rgba(255, 255, 255, 1)',
+                'rgba(255, 255, 255, 1)',
+                'rgba(255, 255, 255, 1)',
+                'rgba(255, 255, 255, 1)',
+                'rgba(255, 255, 255, 1)',
+                'rgba(255, 255, 255, 1)',
+                'rgba(255, 255, 255, 1)',
+                'rgba(255, 255, 255, 1)',
+                'rgba(255, 255, 255, 1)',
+                'rgba(255, 255, 255, 1)',
+                'rgba(255, 255, 255, 1)'
               ],
               borderWidth: 1
           }]
